@@ -30,7 +30,7 @@ public class HiveTableTest {
     Map<String,Integer> columnToPositionMap = hiveTable.getColumnToPositionMap();
     assertThat(columnToPositionMap.size(),is(3));
     assertThat(columnToPositionMap.get("name"),is(0));
-    assertThat(columnToPositionMap.get("phoneNo"),is(1));
+    assertThat(columnToPositionMap.get("phoneno"),is(1));
     assertThat(columnToPositionMap.get("age"),is(2));
 
   }
@@ -43,7 +43,7 @@ public class HiveTableTest {
 
     assertThat(columnToTypeMap.size(),is(3));
     assertThat(columnToTypeMap.get("name").getName(),is("java.lang.String"));
-    assertThat(columnToTypeMap.get("phoneNo").getName(),is("java.lang.String"));
+    assertThat(columnToTypeMap.get("phoneno").getName(),is("java.lang.String"));
     assertThat(columnToTypeMap.get("age").getName(),is("java.lang.Integer"));
 
   }

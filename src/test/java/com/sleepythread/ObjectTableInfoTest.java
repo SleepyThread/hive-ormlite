@@ -4,7 +4,8 @@ import com.sleepythread.sample.Student;
 import org.junit.Test;
 
 
-import java.util.Map;
+import java.lang.reflect.Field;
+import java.util.*;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -27,17 +28,24 @@ public class ObjectTableInfoTest {
     Class<Student> studentClass = Student.class;
     ObjectTableInfo objectTableInfo = new ObjectTableInfo(studentClass);
 
-    Map<String,Class<?>> instanceVariableToTypeMap = objectTableInfo.getInstanceVariableToTypeMap();
+    List<Field> fieldList = objectTableInfo.getFieldList();
+    HashMap<String, Class<?>> stringClassHashMap = new HashMap<String, Class<?>>();
 
-    assertThat(instanceVariableToTypeMap.size(),is(3));
+    for(Field field : fieldList){
+      stringClassHashMap.put(field.getName(),field.getType());
+    }
 
-    assert(instanceVariableToTypeMap.keySet().contains("name"));
-    assert(instanceVariableToTypeMap.keySet().contains("phoneNo"));
-    assert(instanceVariableToTypeMap.keySet().contains("age"));
+    Set<String> instanceVariables = stringClassHashMap.keySet();
 
-    assertThat(instanceVariableToTypeMap.get("name").getName(),is("java.lang.String"));
-    assertThat(instanceVariableToTypeMap.get("phoneNo").getName(),is("java.lang.String"));
-    assertThat(instanceVariableToTypeMap.get("age").getName(),is("int"));
+    assertThat(instanceVariables.size(),is(3));
+
+    assert(instanceVariables.contains("name"));
+    assert(instanceVariables.contains("phoneNo"));
+    assert(instanceVariables.contains("age"));
+
+    assertThat(stringClassHashMap.get("name").getName(),is("java.lang.String"));
+    assertThat(stringClassHashMap.get("phoneNo").getName(),is("java.lang.String"));
+    assertThat(stringClassHashMap.get("age").getName(), is("int"));
 
   }
 }

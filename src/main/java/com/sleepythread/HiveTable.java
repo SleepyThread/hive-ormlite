@@ -26,7 +26,7 @@ public class HiveTable {
     for(int i = 0; i < fields.size(); i++){
       FieldSchema fieldSchema = fields.get(i);
       String type = fieldSchema.getType();
-      String name = fieldSchema.getName();
+      String name = fieldSchema.getName().toLowerCase();
       columnToPositionMap.put(name,i);
       columnToTypeMapper.put(name, typeMapper.getJavaType(type));
 
