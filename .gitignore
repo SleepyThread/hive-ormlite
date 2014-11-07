@@ -1,3 +1,5 @@
 *.iml
 .idea/
 target/
+src/main/java/com/sleepythread/Main.java
+src/main/java/com/sleepythread/Student.java
