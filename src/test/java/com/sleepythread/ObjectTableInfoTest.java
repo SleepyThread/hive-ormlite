@@ -45,7 +45,7 @@ public class ObjectTableInfoTest {
 
     assertThat(stringClassHashMap.get("name").getName(),is("java.lang.String"));
     assertThat(stringClassHashMap.get("phoneNo").getName(),is("java.lang.String"));
-    assertThat(stringClassHashMap.get("age").getName(), is("int"));
+    assertThat(stringClassHashMap.get("age").getName(), is("java.lang.Integer"));
 
   }
 }

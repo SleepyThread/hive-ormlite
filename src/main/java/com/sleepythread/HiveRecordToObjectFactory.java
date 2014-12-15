@@ -38,8 +38,8 @@ public class HiveRecordToObjectFactory<T> {
       Class<?> typeClass = columnToTypeMap.get(varibleName);
       HiveColumnParser parser = new HiveColumnParserFactory().getParser(typeClass);
       Object o = null;
-      if(position != null)
-        parser.parseColumn(split.get(position));
+      if(position != null && position < split.size())
+       o =  parser.parseColumn(split.get(position));
       varible.setAccessible(true);
       varible.set(t, o);
     }

@@ -8,7 +8,7 @@ public class Student {
 
   private String name;
   private String phoneNo;
-  private int age;
+  private Integer age;
 
   public Student(String name, String phoneNo, int age) {
     this.name = name;
@@ -24,7 +24,7 @@ public class Student {
     return phoneNo;
   }
 
-  public int getAge() {
+  public Integer  getAge() {
     return age;
   }
 }
