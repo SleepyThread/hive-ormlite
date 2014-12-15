@@ -39,7 +39,7 @@ public class HiveBuilderFactory {
     return instance;
   }
 
-  <T> T deSerialize(Class<T> className,Text record) throws DbConfigAnnotaionMissingException, TException, IllegalAccessException, InstantiationException {
+  public <T> T deSerialize(Class<T> className,Text record) throws DbConfigAnnotaionMissingException, TException, IllegalAccessException, InstantiationException {
     if(!className.isAnnotationPresent(HiveDbConfig.class)){
       throw new DbConfigAnnotaionMissingException();
     }
