@@ -73,4 +73,37 @@ public class HiveRecordToObjectFactoryTest {
     assertThat(student.getPhoneNo(),is("7777"));
     assertThat(student.getAge(),is(25));
   }
+
+  @Test
+  public void shouldAssignNullValueToTheElementsIfSplitIsMissing() throws IllegalAccessException {
+    ObjectTableInfo objectTableInfo = mock(ObjectTableInfo.class);
+    Field[] declaredFields = Student.class.getDeclaredFields();
+    List<Field> fields = Arrays.asList(declaredFields);
+
+    when(objectTableInfo.getFieldList()).thenReturn(fields);
+
+    Text record = new Text("Akash,7777");
+    HiveTable hiveTable = mock(HiveTable.class);
+    when(hiveTable.getDelimeter()).thenReturn(",");
+    HashMap<String, Class<?>> nameToTypeMap = new HashMap<String, Class<?>>();
+    nameToTypeMap.put("name", String.class);
+    nameToTypeMap.put("phoneno", String.class);
+    HashMap<String, Integer> nameToPositionMap = new HashMap<String, Integer>();
+    nameToPositionMap.put("name",0);
+    nameToPositionMap.put("phoneno",1);
+
+    when(hiveTable.getColumnToTypeMap()).thenReturn(nameToTypeMap);
+    when(hiveTable.getColumnToPositionMap()).thenReturn(nameToPositionMap);
+
+    HiveRecordToObjectFactory<Student> factory = new HiveRecordToObjectFactory<Student>(objectTableInfo, hiveTable, record);
+
+
+    Student student = new Student("Yello", "8888", 0);
+    student = factory.getObject(student);
+
+    assertThat(student.getName(),is("Akash"));
+    assertThat(student.getPhoneNo(),is("7777"));
+    assertThat(student.getAge(),is(0));
+
+  }
 }
