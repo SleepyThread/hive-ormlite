@@ -3,6 +3,19 @@
   <groupId>org.sleepythread</groupId>
   <artifactId>hive-orm</artifactId>
   <version>0.1-SNAPSHOT</version>
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <scm>
+    <url>https://github.com/SleepyThread/hive-ormlite</url>
+  </scm>
+
   <dependencies>
     <dependency>
       <groupId>org.apache.hive</groupId>
