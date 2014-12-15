@@ -3,10 +3,13 @@ package com.sleepythread;
 
 import com.sleepythread.exception.DbConfigAnnotaionMissingException;
 import com.sleepythread.exception.FactoryInstantiationException;
+import com.sleepythread.metastorecache.CacheStore;
+import com.sleepythread.metastorecache.HiveTableInfo;
 import org.apache.hadoop.hive.conf.HiveConf;
 import org.apache.hadoop.hive.metastore.HiveMetaStoreClient;
 import org.apache.hadoop.hive.metastore.api.FieldSchema;
 import org.apache.hadoop.hive.metastore.api.MetaException;
+import org.apache.hadoop.hive.metastore.api.Table;
 import org.apache.hadoop.io.Text;
 import org.apache.thrift.TException;
 
@@ -43,8 +46,10 @@ public class HiveBuilderFactory {
     ObjectTableInfo objectTableInfo = new ObjectTableInfo(className);
     String tableName = objectTableInfo.getTableName();
     String databaseName = objectTableInfo.getDatabaseName();
-    String delimeter = hiveMetaStoreClient.getTable(databaseName, tableName).getSd().getSerdeInfo().getParameters().get(FIELD_DELIM);
-    List<FieldSchema> fields = hiveMetaStoreClient.getFields(databaseName, tableName);
+    CacheStore cacheStore = CacheStore.Instance(hiveMetaStoreClient);
+    HiveTableInfo localTableCache = cacheStore.getTableInfo(databaseName, tableName);
+    String delimeter = localTableCache.getDelimeter();
+    List<FieldSchema> fields = localTableCache.getFieldSchemas();
     HiveTable hiveTable = new HiveTable(databaseName, tableName, fields,new HiveTypeToJavaTypeMapper(),delimeter);
 
     HiveRecordToObjectFactory<T> tHiveRecordToObjectFactory = new HiveRecordToObjectFactory<T>(objectTableInfo, hiveTable, record);
