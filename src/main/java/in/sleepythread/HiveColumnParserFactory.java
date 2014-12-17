@@ -9,9 +9,10 @@ import java.util.HashMap;
 
 public class HiveColumnParserFactory {
 
+  private static HiveColumnParserFactory instance;
   private HashMap<Class<?>, HiveColumnParser> classHiveColumnParserHashMap;
 
-  public HiveColumnParserFactory() {
+  private HiveColumnParserFactory() {
     classHiveColumnParserHashMap = new HashMap<Class<?>, HiveColumnParser>();
     classHiveColumnParserHashMap.put(String.class, new HiveStringParser());
     classHiveColumnParserHashMap.put(Integer.class,new HiveIntegerParser());
@@ -23,6 +24,11 @@ public class HiveColumnParserFactory {
     classHiveColumnParserHashMap.put(Boolean.class,new BooleanParser());
   }
 
+  public static HiveColumnParserFactory Instance(){
+    if(instance == null)
+      instance = new HiveColumnParserFactory();
+    return instance;
+  }
   public HiveColumnParser getParser(Class<?> classType) {
     return classHiveColumnParserHashMap.get(classType);
   }

@@ -36,7 +36,7 @@ public class HiveRecordToObjectFactory<T> {
       String varibleName = varible.getName().toLowerCase();
       Integer position = hivePositionToColumnMap.get(varibleName);
       Class<?> typeClass = columnToTypeMap.get(varibleName);
-      HiveColumnParser parser = new HiveColumnParserFactory().getParser(typeClass);
+      HiveColumnParser parser = HiveColumnParserFactory.Instance().getParser(typeClass);
       Object o = null;
       if(position != null && position < split.size())
        o =  parser.parseColumn(split.get(position));

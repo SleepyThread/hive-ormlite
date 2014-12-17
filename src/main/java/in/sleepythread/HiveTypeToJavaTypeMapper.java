@@ -81,17 +81,10 @@ public class HiveTypeToJavaTypeMapper {
   }
 
   private boolean isComplexType(String typeName) {
-    List<HiveDataType> hiveComplexDataTypes = new java.util.ArrayList<HiveDataType>();
-    hiveComplexDataTypes.add(HiveDataType.MAP);
-    hiveComplexDataTypes.add(HiveDataType.STRUCT);
-    hiveComplexDataTypes.add(HiveDataType.UNIONTYPE);
-    hiveComplexDataTypes.add(HiveDataType.ARRAY);
-
-    for(HiveDataType type : hiveComplexDataTypes)
-      if(typeName.matches("^"+type.typeName+"<.*>"))
-        return true;
-
-    return false;
+    return typeName.matches("^"+HiveDataType.MAP.typeName+"<.*>") ||
+            typeName.matches("^"+HiveDataType.STRUCT.typeName+"<.*>") ||
+            typeName.matches("^"+HiveDataType.UNIONTYPE.typeName+"<.*>") ||
+            typeName.matches("^"+HiveDataType.ARRAY.typeName+"<.*>");
   }
 
 }
